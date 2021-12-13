@@ -1,5 +1,9 @@
 package servlets;
 
+import helpers.JsonParser;
+import java.util.LinkedList;
+import java.util.List;
+import models.ResultData;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -14,16 +18,30 @@ public class AreaCheckServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    long nanoTime = System.nanoTime();
-    double x = (double)req.getAttribute("x");
+    String[] xArrStr = (String[]) req.getAttribute("xArr");
+    double[] xArr = new double[xArrStr.length];
+    for (int i = 0; i < xArrStr.length; i++) {
+      xArr[i] = Double.parseDouble(xArrStr[i]);
+    }
     double y = (double)req.getAttribute("y");
     double r = (double)req.getAttribute("r");
 
-    PrintWriter output = resp.getWriter();
     Date currentDate = new Date();
     SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm:ss");
     String currentTime = dateFormatter.format(currentDate);
-    output.println(currentTime);
+    List<ResultData> listOfResult = new LinkedList<>();
+
+    for (double x : xArr){
+      long startTime = System.nanoTime();
+      String answer = checkHit(x, y, r) ? "YES" : "NO";
+      long processingTime = System.nanoTime() - startTime;
+      ResultData result = new ResultData(x, y, r, answer, currentTime, processingTime);
+      listOfResult.add(result);
+    }
+
+    JsonParser jsonParser = new JsonParser();
+    PrintWriter output = resp.getWriter();
+    output.println(jsonParser.toJson(listOfResult));
   }
 
   private boolean checkHit(double x, double y, double r) {

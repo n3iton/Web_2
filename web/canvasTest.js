@@ -9,18 +9,18 @@ let width = canvas.width;
 let height = canvas.height;
 canvas.addEventListener('mousedown', event => clickOnCanvas(canvas, event));
 
+
 function loadCanvas(){
     drawCanvas();
 }
 
 function drawCanvas() {
-    let valR = 3 * step; //valueR.value * step;
+    let valR = document.querySelector('input[name="r"]:checked').value * step;
     ctx.globalAlpha = 1;
     drawRectangle(valR);
     drawTriangle(valR);
     drawCircle(valR);
     drawAXIS();
-    //drawPoints();
 }
 
 function drawTriangle(rValue) {
@@ -86,19 +86,12 @@ function drawAXIS() {
     }
 }
 
-function clearCanvas() {
-    ctx.save();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
-    drawPoints();
-}
-
-function drawPoints() {
-    for (let i = 0; i < pointsXArray.length; i++) {
-        if (pointsRArray[i] === valueR.value)
-        drawPoint(pointsXArray[i], pointsYArray[i]);
-    }
-}
+// function drawPoints() {
+//     for (let i = 0; i < pointsXArray.length; i++) {
+//         if (pointsRArray[i] === valueR.value)
+//         drawPoint(pointsXArray[i], pointsYArray[i]);
+//     }
+//}
 
 function drawPoint(x, y) {
     let pointColor = 'orange';
@@ -108,6 +101,17 @@ function drawPoint(x, y) {
     ctx.strokeStyle = pointColor;
     ctx.fill();
     ctx.stroke();
+}
+
+function clearCanvas() {
+    //ctx.save();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+}
+
+function refreshCanvas() {
+    clearCanvas();
+    drawCanvas();
 }
 
 loadCanvas();

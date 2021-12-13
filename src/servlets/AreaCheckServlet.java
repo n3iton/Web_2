@@ -48,10 +48,10 @@ public class AreaCheckServlet extends HttpServlet {
     boolean result = false;
     if (x >= 0 && y <= 0)
       result = checkRectangleHit(x, y, r);
-    else if (x <= 0 && y >= 0)
-      result = checkCircleHit(x, y, r);
     else if (x <= 0 && y <= 0)
       result = checkTriangleHit(x, y, r);
+    else if (x <= 0 && y >= 0)
+      result = checkCircleHit(x, y, r);
     return result;
   }
 

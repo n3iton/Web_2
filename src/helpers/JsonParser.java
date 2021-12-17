@@ -16,6 +16,8 @@ public class JsonParser {
   }
 
   public String toJson(List<ResultData> arrayOfResult) {
+    if (arrayOfResult.isEmpty())
+        return "[]";
     String jsonArray = "[";
     for (ResultData result:arrayOfResult) {
       jsonArray += toJson(result);

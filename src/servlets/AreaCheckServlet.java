@@ -1,8 +1,11 @@
 package servlets;
 
 import helpers.JsonParser;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.ServletContext;
 import models.ResultData;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AreaCheckServlet extends HttpServlet {
-
+  List resultsFromAllResponses = Collections.synchronizedList(new ArrayList<>());
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -38,6 +41,13 @@ public class AreaCheckServlet extends HttpServlet {
       ResultData result = new ResultData(x, y, r, answer, currentTime, processingTime);
       listOfResult.add(result);
     }
+
+    ServletContext context = this.getServletContext();
+    if (context.getAttribute("results") == null) {
+      context.setAttribute("results", resultsFromAllResponses);
+    }
+    resultsFromAllResponses.addAll(listOfResult);
+    context.setAttribute("results", resultsFromAllResponses);
 
     JsonParser jsonParser = new JsonParser();
     PrintWriter output = resp.getWriter();

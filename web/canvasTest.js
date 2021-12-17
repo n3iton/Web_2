@@ -113,5 +113,3 @@ function refreshCanvas() {
     clearCanvas();
     drawCanvas();
 }
-
-loadCanvas();

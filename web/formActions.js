@@ -47,8 +47,12 @@ rArray.forEach((radioButton) =>
     radioButton.addEventListener('click', refreshCanvas));
 
 
-
-
+loadCanvas();
 document.getElementById("submit").addEventListener('click', submitForm);
+
+
+$.post('controller', {
+    'reload': 'true',
+}).done((data) => console.log(data));
 
 

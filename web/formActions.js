@@ -3,7 +3,19 @@ function sendRequest(xArr, y, r) {
         'xArr': xArr,
         'y': y,
         'r': r,
-    }).done((data) => console.log(data));
+    }).done((data) => {
+        //$(".scroll-table tr:gt(0)").remove();
+            let arrayOfResults = JSON.parse(data);
+
+            arrayOfResults.forEach(result => {
+                    let nRow = '<tr>';
+                    for (let key in result) {
+                        nRow += `<td>${result[key]}</td>`;
+                    }
+                    nRow += '</tr>';
+                    $('#result-table').append(nRow);
+            });
+    });
 }
 
 function clickOnCanvas(canvas, event) {
@@ -53,6 +65,16 @@ document.getElementById("submit").addEventListener('click', submitForm);
 
 $.post('controller', {
     'reload': 'true',
-}).done((data) => console.log(data));
+}).done((data) => {
+    let arrayOfResults = JSON.parse(data);
+    $(".scroll-table tr:gt(0)").remove();
+    arrayOfResults.forEach(result => {
+        let nRow = '<tr>';
+        for (let key in result) 
+            nRow += `<td>${result[key]}</td>`;
+        nRow += '</tr>';
+        $('#result-table').append(nRow);
+    });
+});
 
 

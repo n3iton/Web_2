@@ -4,9 +4,7 @@ function sendRequest(xArr, y, r) {
         'y': y,
         'r': r,
     }).done((data) => {
-        //$(".scroll-table tr:gt(0)").remove();
             let arrayOfResults = JSON.parse(data);
-
             arrayOfResults.forEach(result => {
                     let nRow = '<tr>';
                     for (let key in result) {
@@ -43,25 +41,12 @@ function submitForm() {
     sendRequest(xArr, y, r);
 }
 
-
-
-// let errorX = document.getElementById("errorX");
-// let errorY = document.getElementById("errorY");
-// let errorC = document.getElementById("errorC");
-// let errorV = document.getElementById("errorV");
-
-// let pointsXArray = [];
-// let pointsYArray = [];
-// let pointsRArray = [];
-
 let rArray = document.getElementsByName("r");
 rArray.forEach((radioButton) =>
     radioButton.addEventListener('click', refreshCanvas));
 
-
-loadCanvas();
 document.getElementById("submit").addEventListener('click', submitForm);
-
+loadCanvas();
 
 $.post('controller', {
     'reload': 'true',

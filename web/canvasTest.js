@@ -86,13 +86,6 @@ function drawAXIS() {
     }
 }
 
-// function drawPoints() {
-//     for (let i = 0; i < pointsXArray.length; i++) {
-//         if (pointsRArray[i] === valueR.value)
-//         drawPoint(pointsXArray[i], pointsYArray[i]);
-//     }
-//}
-
 function drawPoint(x, y) {
     let pointColor = 'orange';
     ctx.beginPath();
@@ -106,7 +99,7 @@ function drawPoint(x, y) {
 function clearCanvas() {
     //ctx.save();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
+    //ctx.restore();
 }
 
 function refreshCanvas() {

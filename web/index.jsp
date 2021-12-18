@@ -9,6 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Web2</title>
 </head>
@@ -55,17 +56,17 @@
 </div>
 
 <jsp:include page="hitsTable.jsp"/>
-<div>
+<!-- <div>
     <button id="clear">Очистить</button>
-</div>
+</div> -->
 
-<div class="footer">
+<!-- <div class="footer">
     <div>
         <a href="https://github.com/n3iton/Web_2">
             <img class="github" src="GitHub-Mark-64px.png" width="50" height="50" alt="github">
         </a>
     </div>
-</div>
+</div> -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="canvasTest.js"></script>

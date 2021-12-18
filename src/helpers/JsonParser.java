@@ -11,7 +11,7 @@ public class JsonParser {
         "\"r\":" + "\"" + result.getR() + "\"" + "," +
         "\"result\":" + "\"" + result.getResult() + "\"" + "," +
         "\"currentTime\":" + "\"" + result.getCurrentTime() + "\"" + "," +
-        "\"processingTime\":" + "\"" + result.getProcessingTime() + "\"" +
+        "\"processingTime\":" + "\"" + result.getProcessingTime() + " ns" + "\"" +
         "}";
   }
 

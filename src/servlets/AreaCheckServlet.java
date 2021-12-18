@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.DoubleStream;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.servlet.ServletContext;
 import models.ResultData;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AreaCheckServlet extends HttpServlet {
+  ReentrantLock reentrantLock = new ReentrantLock();
   List<ResultData> resultsFromAllResponses = Collections.synchronizedList(new ArrayList<>());
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -31,6 +32,7 @@ public class AreaCheckServlet extends HttpServlet {
         }
         double y = (double) req.getAttribute("y");
         double r = (double) req.getAttribute("r");
+        reentrantLock.lock();
         if (!validateR(r)) {
           throw new NumberFormatException();
         }
@@ -56,6 +58,7 @@ public class AreaCheckServlet extends HttpServlet {
 
         JsonParser jsonParser = new JsonParser();
         output.println(jsonParser.toJson(listOfResult));
+        reentrantLock.unlock();
       } catch (NumberFormatException e) {
         output.print("Invalid-data");
         e.printStackTrace();
